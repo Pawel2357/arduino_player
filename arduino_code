@@ -1,0 +1,128 @@
+//#include <LiquidCrystal_I2C.h>
+
+//LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+
+#define NOTE_f1 175
+#define NOTE_f2 349
+#define NOTE_c1 131
+#define NOTE_d1 147
+#define NOTE_d2 294
+#define NOTE_a 110
+#define NOTE_b 116
+#define NOTE_b1 233
+#define NOTE_f 87
+#define NOTE_c2 262
+#define NOTE_g 98
+
+
+
+int buttonPin = 4;
+int buzzerPin = 7;
+int tempoUpPin = 2;
+
+
+int noteDuration = 200;
+int pauseBetweenNotes = noteDuration * 1.30;
+int currentIndex = 0;
+bool isPlaying = false;
+
+const int debounceDelay = 200;
+
+
+void setup() {
+//lcd.init();
+  //lcd.backlight();
+  Serial.begin(9600);
+
+
+
+  // attachInterrupt(digitalPinToInterrupt(2), tempoUp, FALLING);
+  // //attachInterrupt(digitalPinToInterrupt(3), tempoDown, FALLING);
+
+  pinMode(buttonPin, INPUT_PULLUP);
+  pinMode(buzzerPin, OUTPUT);
+
+  digitalWrite(buzzerPin, LOW);
+  digitalWrite(buttonPin, LOW);
+  digitalWrite (tempoUpPin, LOW);
+  pinMode(tempoUpPin, INPUT_PULLUP);
+}
+
+
+
+void loop()
+{
+
+  //lcd.setCursor(0,0);
+  //lcd.print("Kurs Arduino");
+
+  // int buttonState = digitalRead (buttonPin);
+  
+
+  // while (buttonState == HIGH) {}{
+  // playMelody();
+  // }
+
+  // while (buttonState == HIGH) {}
+
+  // }
+
+  // void tempoUp() {
+  //   noteDuration = noteDuration - 50;
+  // }
+
+  // void playMelody(){
+
+  int melody[] = {
+  NOTE_f1, NOTE_f2, NOTE_c1, NOTE_f2, NOTE_f1, NOTE_f2, NOTE_c1, NOTE_f2, 
+  NOTE_d1, NOTE_d2, NOTE_a, NOTE_d2, NOTE_d1, NOTE_d2, NOTE_a, NOTE_d2, 
+  NOTE_b, NOTE_b1, NOTE_f, NOTE_b1, NOTE_b, NOTE_b1, NOTE_f, NOTE_b1,
+  NOTE_c1, NOTE_c2, NOTE_g, NOTE_c2, NOTE_c1, NOTE_c2,NOTE_g, NOTE_c2 
+  };
+
+  int buttonState = digitalRead (buttonPin);
+  bool play = true;
+
+  if (buttonState == HIGH) {
+    delay(debounceDelay);
+
+    int i = 0;
+    int thisNote;
+    
+    while (play) {
+      Serial.println(i);
+      thisNote = i % 32;
+
+      int previousMillis = millis();
+      // rozpoczecie grania
+      tone(buzzerPin, melody [thisNote]); //, noteDuration);
+
+      while(millis() - previousMillis < noteDuration) {
+        buttonState = digitalRead(buttonPin);
+        if (buttonState == HIGH) {
+          delay(debounceDelay);
+          Serial.println("break tone");
+          play = false;
+          break;
+        }
+      }
+
+      noTone(buzzerPin);
+
+      previousMillis = millis();
+      // przerwa pomiedzy nutami
+      while(millis() - previousMillis < pauseBetweenNotes) {
+        buttonState = digitalRead(buttonPin);
+        if (buttonState == HIGH) {
+          delay(debounceDelay);
+          play = false;
+          break;
+        }
+      }
+      //delay(pauseBetweenNotes);
+      i++;
+    }
+  } 
+
+}
