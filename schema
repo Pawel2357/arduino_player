@@ -54,8 +54,8 @@
     {
       "type": "wokwi-resistor",
       "id": "r4",
-      "top": 230.88,
-      "left": 43.7,
+      "top": 233.75,
+      "left": 27.94,
       "rotate": 90,
       "attrs": { "value": "1000" }
     },
@@ -81,22 +81,22 @@
     [ "r1:2", "uno:7", "red", [ "v0.22", "h95.28" ] ],
     [ "uno:4", "btn1:2.l", "yellow", [ "v-165.27", "h73.69" ] ],
     [ "btn1:2.r", "r2:1", "black", [ "v0" ] ],
-    [ "btn2:1.r", "r4:1", "black", [ "v0" ] ],
-    [ "btn3:1.r", "r3:1", "black", [ "v0" ] ],
     [ "btn3:2.l", "uno:2", "green", [ "v-77.07", "h377.24" ] ],
     [ "btn2:2.l", "uno:3", "gray", [ "v-64.83", "h300.76" ] ],
     [ "uno:A5", "lcd1:SCL", "blue", [ "v0" ] ],
     [ "lcd1:SDA", "uno:A4", "violet", [ "h0" ] ],
     [ "r3:2", "bb1:tp.5", "black", [ "h0" ] ],
-    [ "r4:2", "bb1:tp.10", "black", [ "h0" ] ],
     [ "r2:2", "bb1:tp.25", "black", [ "h-4.92", "v154.86" ] ],
     [ "uno:GND.3", "bb1:tp.20", "black", [ "v86.14", "h-120.9" ] ],
-    [ "btn2:2.r", "bb1:tn.9", "red", [ "v0" ] ],
-    [ "btn3:2.r", "bb1:tn.3", "red", [ "v0" ] ],
     [ "btn1:1.r", "bb1:tn.25", "red", [ "v379.63", "h0.32" ] ],
     [ "uno:5V", "bb1:tn.17", "red", [ "v64.84", "h-134.56" ] ],
     [ "lcd1:GND", "bb1:bp.25", "black", [ "h0" ] ],
-    [ "lcd1:VCC", "bb1:bn.21", "red", [ "h0" ] ]
+    [ "lcd1:VCC", "bb1:bn.21", "red", [ "h0" ] ],
+    [ "bb1:tp.10", "r4:2", "green", [ "v0" ] ],
+    [ "r4:1", "btn2:2.r", "green", [ "h0" ] ],
+    [ "r3:1", "btn3:2.r", "green", [ "h0" ] ],
+    [ "bb1:tn.6", "btn3:1.r", "green", [ "v0" ] ],
+    [ "bb1:tn.11", "btn2:1.r", "green", [ "v0" ] ]
   ],
   "dependencies": {}
 }
